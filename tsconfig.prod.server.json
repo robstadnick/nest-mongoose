@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+      "outDir": "./dist/server-app",
+      "module": "commonjs",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "moduleResolution": "node",
+      "allowJs": true,
+      "target": "es6",
+      "sourceMap": true,
+    },
+    "include": [
+      "server/**/*.ts"],
+    "exclude": ["node_modules", "dist", "src", "e2e", ".vscode", "server/**/*.spec.ts"],
+    "angularCompilerOptions": {
+      "entryModule": "./src/app/app.server.module#AppServerModule"
+    }
+  }
+  
