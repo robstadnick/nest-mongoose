@@ -13,14 +13,14 @@ if (process.env.NODE_ENV === 'production') {
   enableProdMode();
 }
 
-// const DIST_FOLDER = path.join(process.cwd(), 'dist');
-// const DIST_BROWSER_FOLDER = path.join(DIST_FOLDER, 'browser');
+const DIST_FOLDER = path.join(process.cwd(), 'dist');
+const DIST_BROWSER_FOLDER = path.join(DIST_FOLDER, 'browser');
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(ApplicationModule);
-  // app.setViewEngine('html');
-  // app.useStaticAssets(DIST_BROWSER_FOLDER);
-  // app.setBaseViewsDir(DIST_BROWSER_FOLDER);
+  app.setViewEngine('html');
+  app.useStaticAssets(DIST_BROWSER_FOLDER);
+  app.setBaseViewsDir(DIST_BROWSER_FOLDER);
   app.use(forceSsl);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
