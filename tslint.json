@@ -6,7 +6,7 @@
     "deprecation": {
       "severity": "warn"
     },
-    "semicolon": [true, "always", "ignore-interfaces"],
+    "semicolon": false,
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
@@ -91,14 +91,5 @@
   },
   "rulesDirectory": [
     "codelyzer"
-  ],
-  "variable-name": {
-    "options": [
-      "ban-keywords",
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case",
-      "allow-snake-case"
-    ]
-  }
+  ]
 }
