@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from
 import { UserService } from './user.service';
 import { MessageCodeError } from '../../errors';
 
-@Controller('users')
+@Controller('api/users')
 export class UserController {
 
     constructor(

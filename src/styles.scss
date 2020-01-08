@@ -1,8 +1,33 @@
-// @import 'themes';
-
-// @import '~@nebular/theme/styles/globals';
-
-// @include nb-install() {
-//   @include nb-theme-global();
-// };
-// /* You can add global styles to this file, and also import other style files */
+/* For use in src/lib/core/theming/_palette.scss */
+$md-mcgpalette0: (
+    50 : #f7f3e6,
+    100 : #ece1c1,
+    200 : #dfcd98,
+    300 : #d2b96e,
+    400 : #c9aa4f,
+    500 : #bf9b30,
+    600 : #b9932b,
+    700 : #b18924,
+    800 : #a97f1e,
+    900 : #9b6d13,
+    A100 : #ffedce,
+    A200 : #ffda9b,
+    A400 : #ffc868,
+    A700 : #ffbe4e,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);

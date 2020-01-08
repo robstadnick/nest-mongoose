@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { UserService } from '../modules/users/user.service';
 import { DTOSetPassword } from './interfaces/auth.dto';
 
-@Controller('auth')
+@Controller('api/auth')
 export class AuthController {
 
     constructor(

@@ -1,0 +1,24 @@
+<nb-card accent="danger">
+    <nb-card-header>
+        <h5>{{title}} </h5>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-lg-12">
+                {{discription}}
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row">
+            <div class="col-lg-6">
+                <button (click)="selectedConfirmation(false)" [status]='cancel' nbButton>{{noText}}</button>
+            </div>
+            <div class="col-lg-6">
+                <div class="float-right">
+                    <button (click)="selectedConfirmation(true)" [status]='confirm' nbButton>Yes</button>
+                </div>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

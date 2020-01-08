@@ -9,6 +9,8 @@ import * as forceSsl from 'force-ssl-heroku';
 import * as fileupload from 'express-fileupload';
 import * as helmet from 'helmet';
 import * as path from 'path';
+import { Logger } from '@nestjs/common';
+
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();
 }
@@ -27,8 +29,8 @@ async function bootstrap() {
   const port = process.env.PORT || '4081';
   app.use(fileupload());
   app.use(helmet());
-  app.setGlobalPrefix('api');
   await app.listen(port);
-  console.log('Started Server on Port ', port);
+  const logger = new Logger('Bootstrap');
+  logger.log(`Server Started on Port: ${port}`);
 }
 bootstrap();

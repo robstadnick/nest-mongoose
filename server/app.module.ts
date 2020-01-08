@@ -1,8 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AngularUniversalModule } from '@nestjs/ng-universal';
-import { join } from 'path';
-// import { MongooseModule } from '@nestjs/mongoose';
-import { AngularModule } from './angular.provider'
+import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './modules/users/user.module';
 import { MongoDatabaseModule } from './mongo/mongo-database.module';
@@ -20,18 +17,13 @@ global['localStorage'] = undefined;
 global['getItem'] = undefined;
 
 @Module({
+  controllers: [
+    AppController
+  ],
   imports: [
     MongoDatabaseModule,
     AuthModule,
     UserModule,
-    // AngularModule.asyncAfterLoad() // Contains AngularUniversalModule.forRoot()
-    //
-    // TODO: UNCOMMENT TO VIEW ISSUE
-    // AngularUniversalModule.forRoot({
-    //   viewsPath: join(process.cwd(), 'dist/browser'),
-    //   bundle: require('../server/main'),
-    //   liveReload: true
-    // }),
   ],
   providers: [
   ]

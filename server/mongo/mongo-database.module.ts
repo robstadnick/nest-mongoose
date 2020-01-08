@@ -1,17 +1,20 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { AngularModule } from '../angular.provider';
-import { ServerSideRenderingModule } from './server-side-rendering/server-side-rendering.module'
+// import { databaseProviders } from './mongo-database.provider';
+// import { MongooseConfigService } from './mongo-database.config.service';
 
 @Module({
     imports: [
         MongooseModule.forRootAsync({
+            // imports: [MongoDatabaseConfigModule],
+            // useFactory: async (mongooseConfigService: MongooseConfigService) => ({
             useFactory: async () => (
-                { uri: process.env.MONGO_URI,  useNewUrlParser: true  }
+                { uri: process.env.MONGO_URI, useNewUrlParser: true, useUnifiedTopology: true }
+                // uri: mongooseConfigService.getString(), useNewUrlParser: true
             ),
+            // inject: [MongooseConfigService]
         }),
-        ServerSideRenderingModule,
     ],
     providers: [
 
@@ -23,4 +26,4 @@ import { ServerSideRenderingModule } from './server-side-rendering/server-side-r
 
 export class MongoDatabaseModule {
 
- }
+}
