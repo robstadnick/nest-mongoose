@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken'
 // import { ModelUser } from '../database/models/users/user.model';
 import { UserService } from '../modules/users/user.service';
 import { DTOPasswordResetURL, DTOSetPassword, JWTObject } from './interfaces/auth.dto';
-import { ModelUser } from '../modules/users/interfaces/user.model';
+import { ModelUser } from '../mongo/models/user.model';
 // import { ModelUserRoles } from '../database/models/users/user.roles.model';
 
 @Injectable()

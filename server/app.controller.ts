@@ -9,7 +9,7 @@ const html = path.join(DIST_FOLDER, 'browser/index.html');
 @Controller('*')
 export class AppController {
     renderCache: {} = {};
-    logger = new Logger('AppControll')
+    logger = new Logger('AppControler')
 
     @Get()
     public routesRender(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {

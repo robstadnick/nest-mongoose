@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
-import { MessageCodeError } from '../../errors';
 // import { IUserService } from './interfaces/user-service.interface';
-import { ModelUser } from './interfaces/user.model';
+import { ModelUser } from '../../mongo/models/user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 

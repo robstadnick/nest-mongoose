@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './modules/users/user.module';
 import { MongoDatabaseModule } from './mongo/mongo-database.module';
+import { AwsModule } from './services/aws/aws.module';
+import { MailGunModule } from './services/mail-gun/mail-gun.module';
 
 const domino = require('domino');
 const win = domino.createWindow();
@@ -21,9 +23,14 @@ global['getItem'] = undefined;
     AppController
   ],
   imports: [
+    // Modules
     MongoDatabaseModule,
     AuthModule,
     UserModule,
+
+    // Service Modules
+    AwsModule,
+    MailGunModule
   ],
   providers: [
   ]

@@ -1,6 +1,5 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
-import { MessageCodeError } from '../../errors';
 
 @Controller('api/users')
 export class UserController {
@@ -19,7 +18,7 @@ export class UserController {
     @Post()
     public async create(@Body() body, @Res() res) {
         if (!body || (body && Object.keys(body).length === 0)) {
-            throw new MessageCodeError('user:create:missingInformation');
+            throw new BadRequestException('user:create:missingInformation');
         }
         await this._userService.create(body);
         return res.status(HttpStatus.CREATED).send();
@@ -27,21 +26,21 @@ export class UserController {
 
     @Get(':id')
     public async show(@Param('id') id: string, @Res() res) {
-        if (!id) { throw new MessageCodeError('user:show:missingId'); }
+        if (!id) { throw new BadRequestException('user:show:missingId'); }
         const user = await this._userService.findById(id);
         return res.status(HttpStatus.OK).json(user);
     }
 
     @Put(':id')
     public async update(@Body() body, @Param('id') id: string, @Res() res) {
-        if (!id) { throw new MessageCodeError('user:update:missingId'); }
+        if (!id) { throw new BadRequestException('user:update:missingId'); }
         await this._userService.updateSingleUser(id, body);
         return res.status(HttpStatus.OK).send();
     }
 
     // @Delete(':id')
     // public async delete(@Param('id') id: string, @Res() res) {
-    //     if (!id) { throw new MessageCodeError('user:delete:missingId'); }
+    //     if (!id) { throw new BadRequestException('user:delete:missingId'); }
 
     //     await this._userService.delete(id);
     //     return res.status(HttpStatus.OK).send();
