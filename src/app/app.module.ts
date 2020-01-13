@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
+import { VerifyEmailModule } from './@core/verify-email/verify-email.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/a
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     AuthModule,
+    VerifyEmailModule,
     NbSecurityModule.forRoot({
       accessControl: {
         guest: {
