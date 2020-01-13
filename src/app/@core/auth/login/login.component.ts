@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NbAuthService, NbAuthResult, getDeepFromObject, NbAuthSocialLink, NB_AUTH_OPTIONS } from '@nebular/auth';
-import { AuthUserService } from '../../../@theme/user.service';
-import { IAuthTokenUser } from '../models/auth.model';
+import { IAuthTokenUser } from '../../../../../server/mongo/interfaces/users/auth.model';
+import { AuthUserService } from 'src/app/shared/services/user.service';
 
 
 @Component({
@@ -22,12 +22,15 @@ export class CustomLoginComponent {
   submitted: boolean = false;
   socialLinks: NbAuthSocialLink[] = [];
   rememberMe = false;
+  returnUrl: string;
 
-  constructor(protected service: NbAuthService,
+  constructor(
+    protected service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    // private _authUserService: AuthUserService
+    private _authUserService: AuthUserService,
+    private route: ActivatedRoute,
   ) {
 
     this.redirectDelay = this.getConfigValue('forms.login.redirectDelay');
@@ -46,19 +49,28 @@ export class CustomLoginComponent {
       this.submitted = false;
       if (result.isSuccess()) {
         const user = result.getToken().getPayload() as IAuthTokenUser
-        localStorage.setItem('currentUser', JSON.stringify(user))
-        // this._authUserService.saveUser(user)
-        this.messages = result.getMessages();
+        this._authUserService.getHttpUser(user)
+          .subscribe({
+            next: (nuser) => {
+              if (nuser) {
+                // window.DD_LOGS && DD_LOGS.logger.info('Login', { user: user.email });
+                this.messages = result.getMessages();
+                const redirect = result.getRedirect();
+                if (this.returnUrl) {
+                  return this.router.navigateByUrl(this.returnUrl);
+                } else if (redirect) {
+                  setTimeout(() => {
+                    return this.router.navigateByUrl(redirect);
+                  }, this.redirectDelay);
+                }
+                this.cd.detectChanges();
+              }
+            },
+            error: (error) => this.errors = error
+          });
       } else {
         this.errors = result.getErrors();
       }
-      const redirect = result.getRedirect();
-      if (redirect) {
-        setTimeout(() => {
-          return this.router.navigateByUrl(redirect);
-        }, this.redirectDelay);
-      }
-      this.cd.detectChanges();
     });
   }
 

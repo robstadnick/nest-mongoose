@@ -3,10 +3,10 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { IAuthTokenUser } from 'src/app/@core/auth/models/auth.model';
+import { IAuthTokenUser } from 'server/mongo/interfaces/users/auth.model';
 import { Router } from '@angular/router';
 import { NbAuthService, NbAuthJWTToken } from '@nebular/auth';
-import { AuthUserService } from 'src/app/@theme/user.service';
+import { AuthUserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'ngx-header',
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   picture: string;
   auth: any;
   title: string;
+  image: string
 
   themes = [
     {
@@ -59,15 +60,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authService.getToken()
-      .subscribe((token) => {
-        this.user = token.getPayload();
-        this.name = this.user.first_name + ' ' + this.user.last_name;
-        this._authUserService.getUser(token.getPayload())
-          .subscribe((user) => {
-            this.user = user;
-            this.name = this.user.first_name + ' ' + this.user.last_name;
-          });
+    //TODO: Fix this garbage
+    this._authUserService.user
+      .subscribe({
+        next: (user) => {
+          this.user = user;
+          this.name = this.user.profile.first_name + ' ' + this.user.profile.last_name;
+          this.image = null;
+          this.image = this.user.profile.profile_photo_url;
+        },
+        error: (error) => console.log(error),
       });
     this.currentTheme = this.themeService.currentTheme;
     const { xl } = this.breakpointService.getBreakpointsMap();

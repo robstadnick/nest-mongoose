@@ -1,10 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './modules/users/user.module';
 import { MongoDatabaseModule } from './mongo/mongo-database.module';
 import { AwsModule } from './services/aws/aws.module';
 import { MailGunModule } from './services/mail-gun/mail-gun.module';
+import { AuthMiddleware } from './auth/middleware/auth.middleware';
 
 const domino = require('domino');
 const win = domino.createWindow();
@@ -35,4 +36,18 @@ global['getItem'] = undefined;
   providers: [
   ]
 })
-export class ApplicationModule { }
+export class ApplicationModule {
+  public configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: 'api/auth/**', method: RequestMethod.ALL },
+      )
+      .forRoutes(
+        {
+          path: 'api/user*',
+          method: RequestMethod.ALL
+        },
+      )
+  }
+}

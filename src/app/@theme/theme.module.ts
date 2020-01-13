@@ -40,7 +40,6 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AuthUserService } from './user.service';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -89,7 +88,6 @@ export class ThemeModule {
     return  {
       ngModule: ThemeModule,
       providers: [
-        AuthUserService,
         ...NbThemeModule.forRoot(
           {
             name: 'default',

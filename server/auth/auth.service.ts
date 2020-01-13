@@ -29,8 +29,8 @@ export class AuthService {
         return jwt.sign({
             id: user.id,
             email: user.email,
-            first_name: user.first_name,
-            last_name: user.last_name,
+            first_name: user.profile.first_name,
+            last_name: user.profile.last_name,
             role: roles,
         }, process.env.JWT_SECRET, { expiresIn: '1 days' });
         // }, process.env.JWT_SECRET, { expiresIn: 10 });

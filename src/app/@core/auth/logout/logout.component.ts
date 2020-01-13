@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbAuthService, NB_AUTH_OPTIONS, NbAuthResult, getDeepFromObject } from '@nebular/auth';
-import { AuthUserService } from '../../../@theme/user.service';
+import { AuthUserService } from 'src/app/shared/services/user.service';
 declare global {
   interface Window { Intercom: any; }
 }
@@ -29,11 +29,12 @@ export class NbxLogoutComponent implements OnInit {
   }
 
   logout(strategy: string): void {
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('auth_app_token');
     this.service.logout(strategy).subscribe((result: NbAuthResult) => {
       const redirect = result.getRedirect();
       if (redirect) {
         // window.Intercom('shutdown');
-        localStorage.removeItem('currentUser');
         setTimeout(() => {
           // location.reload();
           return this.router.navigateByUrl(redirect);

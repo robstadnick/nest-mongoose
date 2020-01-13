@@ -22,6 +22,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (token.isValid()) {
                     this.accessToken = token.getValue();
                     return;
+                } else {
+                    this._router.navigate(['/auth/logout']);
                 }
             });
     }
@@ -45,12 +47,13 @@ export class AuthInterceptor implements HttpInterceptor {
         const token = this.getUserTokenLocal();
         const headers = req.headers.set('Authorization', `Bearer ${token}`);
         const authReq = req.clone({ headers });
-        return next.handle(authReq);
-        // .pipe(
-        //     catchError((err: HttpErrorResponse): Observable<any> => {
-        //         return this.handleAuthError(err);
-        //     })
-        // )
+        return next.handle(authReq)
+            // .pipe(
+            //     catchError((err: HttpErrorResponse): Observable<any> => {
+            //         this.handleAuthError(err);
+            //         return next.handle(authReq)
+            //     })
+            // )
     }
 
     // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -80,13 +83,22 @@ export class AuthInterceptor implements HttpInterceptor {
 
     handleAuthError(err: HttpErrorResponse): Observable<any> {
         if (err.status === 500) {
-            // if (!this._router.url.includes('/auth')) {
-
-            // }
-            //delete cookies or whatever
             this.showToast('info', `Sorry we ran into an error, we are looking into it now.`);
             console.log('handled error ' + err.status);
             // this._router.navigate(['/commercial-trucking/dashboard'])
+            return of(err.message);
+        }
+        if (err.status === 401) {
+            this.showToast('info', `Sorry we ran into an error, we are looking into it now.`);
+            console.log('handled error ' + err.status);
+            // this._router.navigate(['/auth/logout'])
+            return of(err.message);
+        }
+        if (err.status === 409) {
+            this.toastr.warning(err.error.message, 'Conflict', { duration: 6000, preventDuplicates: true });
+            console.log(err);
+            console.log('handled error ' + err.status);
+            // this._router.navigate(['/auth/logout'])
             return of(err.message);
         }
     }
