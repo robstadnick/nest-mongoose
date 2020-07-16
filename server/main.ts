@@ -27,7 +27,6 @@ async function bootstrap() {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   const port = process.env.PORT || '4081';
-  app.use(fileupload());
   app.use(helmet());
   await app.listen(port);
   const logger = new Logger('Bootstrap');

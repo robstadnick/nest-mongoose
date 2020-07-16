@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotImplementedException, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
 // import { IUserService } from './interfaces/user-service.interface';
-import { ModelUser } from '../../mongo/models/user.model';
+import { ModelUser } from '../../mongo/models/users/user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUserPagination } from '../../mongo/interfaces/users/user.pagination.interface';

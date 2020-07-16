@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, NotFoundException, Req, Res } from '@nestj
 import { AuthService } from './auth.service';
 import { UserService } from '../modules/users/user.service';
 import { DTOSetPassword } from './interfaces/auth.dto';
+import { VerifyEmailService } from './services/verify.email.service';
 
 @Controller('api/auth')
 export class AuthController {
@@ -9,7 +10,8 @@ export class AuthController {
     constructor(
         // tslint:disable-next-line: variable-name
         private _authService: AuthService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _verifyEmailService: VerifyEmailService,
     ) { }
 
     @Post('sign-in')

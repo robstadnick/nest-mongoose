@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, BadRequestException, Logger, Query, NotFoundException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Response } from 'express'
-import { ModelUser } from '../../mongo/models/user.model';
+import { ModelUser } from '../../mongo/models/users/user.model';
 import { IUser } from '../../mongo/interfaces/users/user.interface';
 
 @Controller('api/users')
