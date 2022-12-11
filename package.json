@@ -41,7 +41,7 @@
     "@nestjs/mongoose": "^6.4.0",
     "@nestjs/ng-universal": "^2.0.1",
     "@nestjs/passport": "^7.0.0",
-    "@nestjs/platform-express": "7.0.9",
+    "@nestjs/platform-express": "9.2.1",
     "@nguniversal/common": "9.1.0",
     "@nguniversal/express-engine": "9.1.0",
     "@nguniversal/module-map-ngfactory-loader": "8.2.6",
